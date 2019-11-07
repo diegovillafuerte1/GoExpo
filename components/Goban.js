@@ -7,111 +7,45 @@ import {
 } from 'react-native';
 // const { isSquareFilled } = this.state;
 
+const GobanRow = ({ styleProp }) => (
+    <View style={styles.gobanRow}>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+        <View style={styleProp}></View>
+    </View>
+);
+
 const Goban = ({ title }) => (
-  <View style={styles.gobanContainer}>
-    <Text style={styles.headerText}>{title.toUpperCase()}</Text>
-    <View style={styles.gobanRow}>
-        <View style={[styles.gobanSquare, true ? styles.filledSquare : styles.unfilledSquare]} >
-            <TouchableOpacity onPress={handleSquarePress} />
+    <View style={styles.gobanContainer}>
+        <Text style={styles.headerText}>{title.toUpperCase()}</Text>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        {/* Overlay Goban */}
+        <View style={styles.gobanOverlay}>
+            <GobanRow styleProp={[styles.gobanPiece, true ? styles.filledSquare : styles.unfilledSquare]}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
+            <GobanRow styleProp={styles.gobanPiece}></GobanRow>
         </View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
     </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-    <View style={styles.gobanRow}>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-        <View style={styles.gobanSquare}></View>
-    </View>
-  </View>
 );
 
 function handleSquarePress() {
@@ -119,6 +53,18 @@ function handleSquarePress() {
 }
 
 const styles = StyleSheet.create({
+  gobanOverlay: {
+    position: 'absolute',
+    top: 45,
+    left: 20
+  },
+  gobanPiece: {
+    padding: 20,
+    borderRadius: 40,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderStyle: 'solid'
+  },
   gobanContainer: {
     display: 'flex',
     marginTop: 40
@@ -144,5 +90,6 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: '500'
   }
+
 });
 export default Goban;
