@@ -1,86 +1,82 @@
 import React from 'react';
-import { 
-    View, 
+import {
+    View,
     Text,
-    StyleSheet 
+    StyleSheet
 } from 'react-native';
 
 import TouchableButton from './TouchableButton';
 
-const GobanRow = ({ styleProp }) => (
-    
-    <View style={styles.gobanRow}>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
-        <View style={styleProp}></View>
+const GobanRow = ({ rowStyle, squareStyle }) => (
+    <View style={rowStyle}>
+        <View style={styles.gobanLeftSquare}></View>
+        <View style={squareStyle}></View>
+        <View style={squareStyle}></View>
+        <View style={squareStyle}></View>
+        <View style={squareStyle}></View>
+        <View style={squareStyle}></View>
+        <View style={squareStyle}></View>
+        <View style={squareStyle}></View>
+        <View style={squareStyle}></View>
     </View>
 );
 
-const OverlayRow = ({ pieceStringArray }) => (
-    <View style={styles.gobanRow}>
-        <View style={getNodeStyle(pieceStringArray[0])}>
-            <TouchableButton></TouchableButton>
-        </View>
-        <View style={getNodeStyle(pieceStringArray[1])}></View>
-        <View style={getNodeStyle(pieceStringArray[2])}></View>
-        <View style={getNodeStyle(pieceStringArray[3])}></View>
-        <View style={getNodeStyle(pieceStringArray[4])}></View>
-        <View style={getNodeStyle(pieceStringArray[5])}></View>
-        <View style={getNodeStyle(pieceStringArray[6])}></View>
-        <View style={getNodeStyle(pieceStringArray[7])}></View>
-        <View style={getNodeStyle(pieceStringArray[8])}></View>
+const OverlayRow = ({ }) => (
+    <View style={styles.gobanOverlayRow}>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
+        <TouchableButton></TouchableButton>
     </View>
 );
 
 const Goban = ({ title }) => (
     <View style={styles.gobanContainer}>
         <Text style={styles.headerText}>{title.toUpperCase()}</Text>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
-        <GobanRow styleProp={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanTopRow} squareStyle={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanRow} squareStyle={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanRow} squareStyle={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanRow} squareStyle={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanRow} squareStyle={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanRow} squareStyle={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanRow} squareStyle={styles.gobanSquare}></GobanRow>
+        <GobanRow rowStyle={styles.gobanRow} squareStyle={styles.gobanSquare}></GobanRow>
         {/* Overlay Goban */}
         <View style={styles.gobanOverlay}>
             {/* <OverlayRow styleProp={[['black', 'white', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty'], true ? styles.filledSquare : styles.unfilledSquare]}></OverlayRow> */}
-            <OverlayRow pieceStringArray={['black', 'white', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['black', 'white', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['empty', 'black', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['white', 'black', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['empty', 'white', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['empty', 'white', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['black', 'black', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['white', 'white', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
-            <OverlayRow pieceStringArray={['empty', 'empty', 'empty', 'black', 'white', 'white', 'empty', 'empty', 'empty']}></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
+            <OverlayRow></OverlayRow>
         </View>
     </View>
 );
 
 function getNodeStyle(pieceColorString) {
-    switch(pieceColorString) {
+    switch (pieceColorString) {
         case 'black':
             return styles.gobanPieceBlack;
-        
+
         case 'white':
             return styles.gobanPieceWhite;
-   
+
         case 'empty':
             return styles.gobanPieceEmpty;
-   
+
         default:
             return styles.gobanPieceEmpty
 
-        }
+    }
 };
 
 function toggleButtonState() {
@@ -88,70 +84,95 @@ function toggleButtonState() {
 };
 
 const styles = StyleSheet.create({
-  gobanOverlay: {
-    position: 'absolute',
-    top: 45,
-    left: 20
-  },
-  gobanPieceWhite: {
-    padding: 19,
-    borderRadius: 40,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    backgroundColor: 'white',
-    
-  },
-  gobanPieceBlack: {
-    padding: 19,
-    borderRadius: 40,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    backgroundColor: 'black'
-  },
-  gobanPieceEmpty: {
-    padding: 20,
-    borderRadius: 40,
-  },
-  gobanPieceHidden: {
-    opacity: 0
-  },
-  gobanPieceVisible: {
-    opacity: 1
-  },
-  gobanPiece: {
-    padding: 20,
-    borderRadius: 40,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderStyle: 'solid'
-  },
-  gobanContainer: {
-    display: 'flex',
-    marginTop: 40
-  },
-  gobanRow: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  gobanSquare: {
-    padding: 19,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderStyle: 'solid'
-  },
-  filledSquare: {
-      backgroundColor: 'black'
-  },
-  unfilledSquare: {
-      backgroundColor: 'white'
-  },
-  headerText: {
-    color: 'black',
-    fontSize: 22,
-    fontWeight: '500'
-  }
+    gobanContainer: {
+        display: 'flex',
+        margin: 20
+    },
+    gobanOverlay: {
+        position: 'absolute',
+        top: 10,
+        left: -20
+    },
+    gobanOverlayRow: {
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    gobanPieceWhite: {
+        padding: 19,
+        borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        backgroundColor: 'white'
+    },
+    gobanPieceBlack: {
+        padding: 19,
+        borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderStyle: 'solid',
+        backgroundColor: 'black'
+    },
+    gobanPieceEmpty: {
+        padding: 20,
+        borderRadius: 40,
+    },
+    gobanPieceHidden: {
+        opacity: 0
+    },
+    gobanPieceVisible: {
+        opacity: 1
+    },
+    gobanPiece: {
+        padding: 20,
+        borderRadius: 40,
+        borderColor: 'black',
+        borderWidth: 1,
+        borderStyle: 'solid'
+    },
+    gobanRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        borderColor: 'black',
+        borderTopWidth: 0,
+        borderBottomWidth: 1,
+        borderStyle: 'solid'
+    },
+    gobanTopRow: {
+        display: 'flex',
+        flexDirection: 'row',
+        borderColor: 'black',
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderStyle: 'solid'
+    },
+    gobanSquare: {
+        width: 40,
+        height: 40,
+        borderColor: 'black',
+        borderLeftWidth: 0,
+        borderRightWidth: 1,
+        borderStyle: 'solid'
+    },
+    gobanLeftSquare: {
+        width: 40,
+        height: 40,
+        borderColor: 'black',
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
+        borderStyle: 'solid'
+    },
+    filledSquare: {
+        backgroundColor: 'black'
+    },
+    unfilledSquare: {
+        backgroundColor: 'white'
+    },
+    headerText: {
+        color: 'black',
+        fontSize: 22,
+        fontWeight: '500'
+    }
 
 });
 export default Goban;
