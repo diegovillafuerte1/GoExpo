@@ -19,7 +19,7 @@ export default function HomeScreen() {
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
+        {/* <View style={styles.welcomeContainer}>
           <Image
             source={
               __DEV__
@@ -40,7 +40,7 @@ export default function HomeScreen() {
               Help, it didn’t automatically reload!
             </Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <Goban title='Goban' />
       </ScrollView>
