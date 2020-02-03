@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableHighlight, Alert, View, StyleSheet } from "react-native";
+import { TouchableHighlight, Alert, View, StyleSheet, Dimensions } from "react-native";
 
 export default class TouchableButton extends React.Component {
     constructor(props) {
@@ -22,31 +22,39 @@ export default class TouchableButton extends React.Component {
                 return styles.gobanPieceEmpty;
        
             default:
-                return styles.gobanPieceEmpty
+                return styles.gobanPieceEmpty;
     
             }
     };
 
     render() {
+        console.log(Dimensions.get('window').width);
         return (
             <TouchableHighlight
                 onPress={() => {
-                    // Alert.alert(
-                    //     `You clicked this button`,
-                    //     'Hello World！',
-                    //     [
-                    //         {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                    //         {text: 'Cancel', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-                    //         {text: 'OK', onPress: () => console.log('OK Pressed')},
-                    //     ]
-                    // )
                 }}
                 style={this.getPieceStyle(this.state.turn)}
                 onHideUnderlay={() => {
-                    this.setState({ turn: 'black' });
+                    if (this.state.turn == 'white'){
+                        this.setState({ turn: 'black' });
+                    }
+                    else if (this.state.turn == 'black'){
+                        this.setState({ turn: 'white' });
+                    }
+                    else{
+                        this.setState({turn: 'black'});
+                    }
                 }}
                 onShowUnderlay={() => {
-                    this.setState({ turn: 'white' });
+                    if (this.state.turn == 'white'){
+                        this.setState({ turn: 'black' });
+                    }
+                    else if (this.state.turn == 'black'){
+                        this.setState({ turn: 'white' });
+                    }
+                    else{
+                        this.setState({turn: 'black'});
+                    }
                 }}
             ><View></View>
             </TouchableHighlight>
@@ -54,25 +62,50 @@ export default class TouchableButton extends React.Component {
     }
 }
 
+const dimHeight = (Dimensions.get('window').width - 80) / 8; // approximate a square, 80 is left margin + right margin
+const dimWidth = (Dimensions.get('window').width - 80) / 9; // approximate a square, 80 is left margin + right margin
+
 const styles = StyleSheet.create({
     gobanPieceWhite: {
-        padding: 19,
-        borderRadius: 40,
-        borderColor: 'black',
+        borderColor: 'blue',
+        borderRadius: dimWidth/2,
         borderWidth: 1,
         borderStyle: 'solid',
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        // margin: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        height: dimWidth,
+        width: dimWidth
     },
     gobanPieceBlack: {
-        padding: 19,
-        borderRadius: 40,
-        borderColor: 'black',
+        // padding: 19,
+        // borderRadius: 40,
+        borderRadius: dimWidth/2,
+        borderColor: 'yellow',
         borderWidth: 1,
         borderStyle: 'solid',
-        backgroundColor: 'black'
+        backgroundColor: 'black',
+        // margin: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        height: dimWidth,
+        width: dimWidth
     },
     gobanPieceEmpty: {
-        padding: 20,
-        borderRadius: 40,
+        // borderColor: 'blue',
+        borderWidth: 1,
+        // borderRadius: dimWidth/2,
+        // borderStyle: 'solid',
+        // backgroundColor: 'white',
+        // margin: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        height: dimWidth,  
+        width: dimWidth
+
     },
 });

@@ -1,80 +1,93 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
 
+import TouchableButton from './TouchableButton';
+
 const data = [
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' },
+  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }
 ];
 
-const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
+const buttons = [
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />,
+    <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />, <TouchableButton />
+]
 
-  let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
-  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-    numberOfElementsLastRow++;
-  }
-
-  return data;
-};
-
-const numColumns = 9;
+const numColumns = 8;
 export default class GobanV3 extends React.Component {
-  renderItem = ({ item, index }) => {
-    if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />;
-    }
+  renderBoardSquare = ({ item, index }) => {
     return (
-      <View
-        style={styles.item}
-      >
-        <Text style={styles.itemText}>{item.key}</Text>
-      </View>
+      <View style={styles.item}></View> //the board
     );
   };
 
+  renderStone = ({ item, index }) => {
+    return (
+        <TouchableButton/>
+    )
+
+  }
+
   render() {
     return (
-      <FlatList
-        data={formatData(data, numColumns)}
-        style={styles.container}
-        renderItem={this.renderItem}
-        numColumns={numColumns}
-      />
+        <View>
+            <FlatList
+                data={data}
+                style={styles.board}
+                renderItem={this.renderBoardSquare}
+                numColumns={numColumns}
+            />
+            <FlatList
+                data={buttons}
+                style={styles.stones}
+                renderItem={this.renderStone}
+                numColumns={numColumns + 1}
+            />
+        </View>
+
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  board: {
     flex: 1,
-    marginVertical: 20,
     backgroundColor: 'black',
-    margin: 20
-
+    margin: 40,
+    borderColor: 'black',
+    borderWidth: 1,
+    borderStyle: 'solid'
 },
   item: {
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    margin: 1,
-    height: Dimensions.get('window').width / numColumns, // approximate a square
+    // margin: 1,
+    height: (Dimensions.get('window').width - 80) / 9, // approximate a square, 80 is left margin + right margin
+    width: (Dimensions.get('window').width - 80) / 9,
     borderColor: 'black',
     borderWidth: 1,
     borderStyle: 'solid'
   },
-  itemInvisible: {
-    backgroundColor: 'transparent',
-  },
-  itemText: {
-    color: 'black',
-  },
+  stones: {
+      flex: 1,
+      margin: 24,
+      position: "absolute",
+      width: (Dimensions.get('window').width - 40)
+  }
+  
 });
