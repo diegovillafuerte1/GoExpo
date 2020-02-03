@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import Goban from '../components/Goban';
+import GobanV3 from '../components/GobanV3';
 
 export default function HomeScreen() {
   return (
@@ -42,7 +42,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View> */}
 
-        <Goban title='Goban' />
+        <GobanV3 title='GobanV3' />
       </ScrollView>
  
 
