@@ -17,7 +17,7 @@ const GobanRow = ({ rowStyle, squareStyle }) => (
         <View style={squareStyle}></View>
         <View style={squareStyle}></View>
         <View style={squareStyle}></View>
-        <View style={squareStyle}></View>
+        <View style={styles.gobanRightSquare}></View>
     </View>
 );
 
@@ -160,6 +160,14 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         borderLeftWidth: 1,
         borderRightWidth: 1,
+        borderStyle: 'solid'
+    },
+    gobanRightSquare: {
+        width: 40,
+        height: 40,
+        borderColor: 'black',
+        borderLeftWidth: 0,
+        borderRightWidth: 0,
         borderStyle: 'solid'
     },
     filledSquare: {
