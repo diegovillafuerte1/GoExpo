@@ -4,23 +4,19 @@ import { TouchableHighlight, Alert, View, StyleSheet, Dimensions } from "react-n
 export default class TouchableButton extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            turn: props.turn,
-            pressed: false
-        };
+        // this.state = {
+        //     turn: props.turn
+        // };
     }
 
-    getPieceStyle(turn) {
-        switch(turn) {
-            case 'black':
+    getPieceStyle(value) {
+        switch(value) {
+            case 0:
                 return styles.gobanPieceBlack;
-            
-            case 'white':
+            case 1:
                 return styles.gobanPieceWhite;
-       
-            case 'empty':
+            case 3:
                 return styles.gobanPieceEmpty;
-       
             default:
                 return styles.gobanPieceEmpty;
     
@@ -28,33 +24,41 @@ export default class TouchableButton extends React.Component {
     };
 
     render() {
-        console.log(Dimensions.get('window').width);
+        // console.log(Dimensions.get('window').width); // 375 - iphone 6s
         return (
             <TouchableHighlight
                 onPress={() => {
                 }}
-                style={this.getPieceStyle(this.state.turn)}
-                // onHideUnderlay={() => {
-                //     if (this.state.turn == 'white'){
-                //         this.setState({ turn: 'black' });
-                //     }
-                //     else if (this.state.turn == 'black'){
-                //         this.setState({ turn: 'white' });
-                //     }
-                //     else{
-                //         this.setState({turn: 'black'});
-                //     }
-                // }}
+                style={this.getPieceStyle(this.props.stone.value)}
                 onShowUnderlay={() => {
-                    if (this.state.turn == 'white'){
-                        this.setState({ turn: 'black' });
+
+                    // need to pass in the new array with the updated stone position, need a concept of which stone we are
+                    let newGoban = this.props.goban;
+                    let ourOldStone = this.props.stone;
+
+                    if (this.props.stone !== 0){
+                        return;
                     }
-                    else if (this.state.turn == 'black'){
-                        this.setState({ turn: 'white' });
+                    else {
+                        // get the old stone data
+                        let newStone = newGoban.find(element => element.key = ourOldStone.key);
+                        // update it's value
+                        newStone.value = this.props.turn % 2;
+                        newGoban.splice(this.props.index, 1, newStone);
+                        // increment the turn
+                        // this.setState({ turn: (this.props.turn + 1) % 2});
+                        this.props.stonesHandler(newGoban, this.props.turn + 1);
                     }
-                    else{
-                        this.setState({turn: 'black'});
-                    }
+
+                    // if (this.state.turn == 'white'){
+                    //     this.setState({ turn: 'black' });
+                    // }
+                    // else if (this.state.turn == 'black'){
+                    //     this.setState({ turn: 'white' });
+                    // }
+                    // else{
+                    //     this.setState({turn: 'black'});
+                    // }
                 }}
             ><View></View>
             </TouchableHighlight>
