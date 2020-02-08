@@ -34,17 +34,17 @@ export default class TouchableButton extends React.Component {
                 onPress={() => {
                 }}
                 style={this.getPieceStyle(this.state.turn)}
-                onHideUnderlay={() => {
-                    if (this.state.turn == 'white'){
-                        this.setState({ turn: 'black' });
-                    }
-                    else if (this.state.turn == 'black'){
-                        this.setState({ turn: 'white' });
-                    }
-                    else{
-                        this.setState({turn: 'black'});
-                    }
-                }}
+                // onHideUnderlay={() => {
+                //     if (this.state.turn == 'white'){
+                //         this.setState({ turn: 'black' });
+                //     }
+                //     else if (this.state.turn == 'black'){
+                //         this.setState({ turn: 'white' });
+                //     }
+                //     else{
+                //         this.setState({turn: 'black'});
+                //     }
+                // }}
                 onShowUnderlay={() => {
                     if (this.state.turn == 'white'){
                         this.setState({ turn: 'black' });
@@ -62,50 +62,33 @@ export default class TouchableButton extends React.Component {
     }
 }
 
-const dimHeight = (Dimensions.get('window').width - 80) / 8; // approximate a square, 80 is left margin + right margin
-const dimWidth = (Dimensions.get('window').width - 80) / 9; // approximate a square, 80 is left margin + right margin
+const squareHeightAndWidth = Dimensions.get('window').width / 10;
 
 const styles = StyleSheet.create({
     gobanPieceWhite: {
         borderColor: 'blue',
-        borderRadius: dimWidth/2,
+        borderRadius: squareHeightAndWidth/2,
         borderWidth: 1,
         borderStyle: 'solid',
         backgroundColor: 'white',
-        // margin: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        height: dimWidth,
-        width: dimWidth
+        height: squareHeightAndWidth,
+        width: squareHeightAndWidth
     },
     gobanPieceBlack: {
-        // padding: 19,
-        // borderRadius: 40,
-        borderRadius: dimWidth/2,
+        borderRadius: 40,
+        borderRadius: squareHeightAndWidth/2,
         borderColor: 'yellow',
         borderWidth: 1,
         borderStyle: 'solid',
         backgroundColor: 'black',
-        // margin: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        height: dimWidth,
-        width: dimWidth
+        height: squareHeightAndWidth,
+        width: squareHeightAndWidth
     },
     gobanPieceEmpty: {
-        // borderColor: 'blue',
+        borderColor:'rgba(158, 150, 150, 1)',
         borderWidth: 1,
-        // borderRadius: dimWidth/2,
-        // borderStyle: 'solid',
-        // backgroundColor: 'white',
-        // margin: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        height: dimWidth,  
-        width: dimWidth
-
+        height: squareHeightAndWidth,  
+        width: squareHeightAndWidth,
+        borderWidth: 1
     },
 });
