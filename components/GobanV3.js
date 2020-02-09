@@ -34,24 +34,26 @@ export default class GobanV3 extends React.Component {
       boardStones: stonesArray,
       currentTurn: 0
     };
+    this.updateStonesPositions = this.updateStonesPositions.bind(this);
   }
 
-  updateStonesPositionsAndTurn(newStonesArray, turn) {
+  updateStonesPositions(newStonesArray) {
     this.setState({
       boardStones: newStonesArray,
-      currentTurn: turn
+      currentTurn: this.state.currentTurn  + 1
     })
   }
   
   renderBoardSquare = ({ item, index }) => {
     return (
-      <View style={styles.boardSquare}></View> //the board
+      <View style={styles.boardSquare}></View>
     );
   };
 
   renderStone = ({ item, index }) => {
+    console.log(this.state.boardStones);
     return (
-        <TouchableButton stone={item} index={index} goban={this.state.boardStones} turn={this.state.currentTurn} stonesHandler={this.updateStonesPositionsAndTurn}/>
+        <TouchableButton stone={item} index={index} goban={this.state.boardStones} turn={this.state.currentTurn} stonesHandler={this.updateStonesPositions}/>
     )
   }
 

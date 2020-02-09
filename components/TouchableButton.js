@@ -4,13 +4,13 @@ import { TouchableHighlight, Alert, View, StyleSheet, Dimensions } from "react-n
 export default class TouchableButton extends React.Component {
     constructor(props) {
         super(props);
-        // this.state = {
-        //     turn: props.turn
-        // };
+        this.state = {
+            stoneStateStyle: styles.gobanPieceEmpty
+        };
     }
 
-    getPieceStyle(value) {
-        switch(value) {
+    getPieceStyle() {
+        switch(this.props.stone.value) {
             case 0:
                 return styles.gobanPieceBlack;
             case 1:
@@ -19,46 +19,37 @@ export default class TouchableButton extends React.Component {
                 return styles.gobanPieceEmpty;
             default:
                 return styles.gobanPieceEmpty;
-    
             }
     };
 
     render() {
         // console.log(Dimensions.get('window').width); // 375 - iphone 6s
+
         return (
             <TouchableHighlight
                 onPress={() => {
                 }}
-                style={this.getPieceStyle(this.props.stone.value)}
+                style={this.getPieceStyle()}
                 onShowUnderlay={() => {
-
                     // need to pass in the new array with the updated stone position, need a concept of which stone we are
-                    let newGoban = this.props.goban;
                     let ourOldStone = this.props.stone;
 
-                    if (this.props.stone !== 0){
+                    if (ourOldStone.value !== 3){
+                        console.log("tried to place a stone where one already exists: " + this.props.stone.value);
                         return;
                     }
                     else {
-                        // get the old stone data
-                        let newStone = newGoban.find(element => element.key = ourOldStone.key);
-                        // update it's value
+                        // get copies of the old data to update
+                        let newStone = {...this.props.goban[this.props.index]}
+                        let newGoban = [...this.props.goban];
+                        console.log(newStone);
+                        console.log("index of this stone: " + this.props.index);
+                        // 0 represents a black stone and 1 represents a white stone. The values are initialized at 3
                         newStone.value = this.props.turn % 2;
                         newGoban.splice(this.props.index, 1, newStone);
-                        // increment the turn
-                        // this.setState({ turn: (this.props.turn + 1) % 2});
-                        this.props.stonesHandler(newGoban, this.props.turn + 1);
+                        // increment turn and update board state in parent
+                        this.props.stonesHandler(newGoban);
                     }
-
-                    // if (this.state.turn == 'white'){
-                    //     this.setState({ turn: 'black' });
-                    // }
-                    // else if (this.state.turn == 'black'){
-                    //     this.setState({ turn: 'white' });
-                    // }
-                    // else{
-                    //     this.setState({turn: 'black'});
-                    // }
                 }}
             ><View></View>
             </TouchableHighlight>
@@ -89,7 +80,7 @@ const styles = StyleSheet.create({
         width: squareHeightAndWidth
     },
     gobanPieceEmpty: {
-        borderColor:'rgba(158, 150, 150, 1)',
+        borderColor:'rgba(158, 150, 150, 0)',
         borderWidth: 1,
         height: squareHeightAndWidth,  
         width: squareHeightAndWidth,
