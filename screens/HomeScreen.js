@@ -12,6 +12,7 @@ import {
 
 import { MonoText } from '../components/StyledText';
 import GobanV3 from '../components/GobanV3';
+import SocketClient from '../components/SocketClient';
 
 export default function HomeScreen() {
   return (
@@ -42,6 +43,7 @@ export default function HomeScreen() {
           </TouchableOpacity>
         </View> */}
 
+        <SocketClient />
         <GobanV3 title='GobanV3' />
       </ScrollView>
  
