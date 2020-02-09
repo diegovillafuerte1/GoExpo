@@ -27,10 +27,7 @@ export default class TouchableButton extends React.Component {
 
         return (
             <TouchableHighlight
-                onPress={() => {
-                }}
-                style={this.getPieceStyle()}
-                onShowUnderlay={() => {
+                onPress={() => {                    
                     // need to pass in the new array with the updated stone position, need a concept of which stone we are
                     let ourOldStone = this.props.stone;
 
@@ -42,14 +39,15 @@ export default class TouchableButton extends React.Component {
                         // get copies of the old data to update
                         let newStone = {...this.props.goban[this.props.index]}
                         let newGoban = [...this.props.goban];
-                        console.log(newStone);
-                        console.log("index of this stone: " + this.props.index);
                         // 0 represents a black stone and 1 represents a white stone. The values are initialized at 3
                         newStone.value = this.props.turn % 2;
                         newGoban.splice(this.props.index, 1, newStone);
                         // increment turn and update board state in parent
                         this.props.stonesHandler(newGoban);
                     }
+                }}
+                style={this.getPieceStyle()}
+                onShowUnderlay={() => {
                 }}
             ><View></View>
             </TouchableHighlight>

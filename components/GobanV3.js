@@ -51,7 +51,7 @@ export default class GobanV3 extends React.Component {
   };
 
   renderStone = ({ item, index }) => {
-    console.log(this.state.boardStones);
+    // console.log(this.state.boardStones);
     return (
         <TouchableButton stone={item} index={index} goban={this.state.boardStones} turn={this.state.currentTurn} stonesHandler={this.updateStonesPositions}/>
     )
