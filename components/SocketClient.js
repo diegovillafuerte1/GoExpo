@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 const io = require('socket.io-client');
 
 // Replace this URL with your own, if you want to run the backend locally!
-const SocketEndpoint = 'https://984a7707.ngrok.io';
+const SocketEndpoint = 'https://a2251c07.ngrok.io';
 
 export default class SocketClient extends React.Component {
     constructor(props){

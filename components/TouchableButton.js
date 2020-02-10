@@ -1,5 +1,8 @@
 import React from "react";
 import { TouchableHighlight, Alert, View, StyleSheet, Dimensions } from "react-native";
+import { validateStone } from "./StoneValidation";
+
+
 
 export default class TouchableButton extends React.Component {
     constructor(props) {
@@ -10,6 +13,7 @@ export default class TouchableButton extends React.Component {
     }
 
     getPieceStyle() {
+        console.log(this.props.stone.value);
         switch(this.props.stone.value) {
             case 0:
                 return styles.gobanPieceBlack;
@@ -42,8 +46,15 @@ export default class TouchableButton extends React.Component {
                         // 0 represents a black stone and 1 represents a white stone. The values are initialized at 3
                         newStone.value = this.props.turn % 2;
                         newGoban.splice(this.props.index, 1, newStone);
+                        
+                        let boardStateAfterValidatingStone = validateStone(newGoban, newGoban[this.props.index], this.props.index);
+                        // error case
+                        if (boardStateAfterValidatingStone[1] == true) {
+                            return;
+                        }
+
                         // increment turn and update board state in parent
-                        this.props.stonesHandler(newGoban);
+                        this.props.stonesHandler(boardStateAfterValidatingStone[0]);
                     }
                 }}
                 style={this.getPieceStyle()}

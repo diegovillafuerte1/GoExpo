@@ -1,50 +1,31 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import {
-  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
-import GobanV3 from '../components/GobanV3';
 import SocketClient from '../components/SocketClient';
+import MenuButton from '../components/UI/MenuButton';
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        {/* <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-
-        <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
-        </View> */}
-
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}>
+        
         <SocketClient />
-        <GobanV3 title='GobanV3' />
+        <View style={styles.mainMenu}>
+          <MenuButton menuItemText='Offline Board'></MenuButton>
+          <MenuButton menuItemText='Online Game'></MenuButton>
+          <MenuButton menuItemText='Other'></MenuButton>
+        </View>
+        {/* <GobanV3 title='GobanV3' /> */}
       </ScrollView>
  
 
@@ -54,7 +35,7 @@ export default function HomeScreen() {
         </Text>
 
         <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
+        style={[styles.codeHighlightContainer, styles.navigationFilename]}>
           <MonoText style={styles.codeHighlightText}>
             navigation/MainTabNavigator.js
           </MonoText>
@@ -190,4 +171,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  mainMenu: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
 });

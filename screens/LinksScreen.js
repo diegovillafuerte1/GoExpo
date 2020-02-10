@@ -2,8 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
 
-
-import Goban from '../components/Goban';
+import GobanV3 from '../components/GobanV3';
 
 export default function LinksScreen() {
   return (
@@ -12,7 +11,7 @@ export default function LinksScreen() {
        * Go ahead and delete ExpoLinksView and replace it with your content;
        * we just wanted to provide you with some helpful links.
        */}
-      <Goban title='GobanOnLinks'/>
+      <GobanV3 title='GobanV3' />
     </ScrollView>
   );
 }
