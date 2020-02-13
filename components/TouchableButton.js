@@ -13,7 +13,6 @@ export default class TouchableButton extends React.Component {
     }
 
     getPieceStyle() {
-        console.log(this.props.stone.value);
         switch(this.props.stone.value) {
             case 0:
                 return styles.gobanPieceBlack;
@@ -41,12 +40,12 @@ export default class TouchableButton extends React.Component {
                     }
                     else {
                         // get copies of the old data to update
-                        let newStone = {...this.props.goban[this.props.index]}
+                        let newStone = {...ourOldStone}
                         let newGoban = [...this.props.goban];
+
                         // 0 represents a black stone and 1 represents a white stone. The values are initialized at 3
                         newStone.value = this.props.turn % 2;
                         newGoban.splice(this.props.index, 1, newStone);
-                        
                         let boardStateAfterValidatingStone = validateStone(newGoban, newGoban[this.props.index], this.props.index);
                         // error case
                         if (boardStateAfterValidatingStone[1] == true) {

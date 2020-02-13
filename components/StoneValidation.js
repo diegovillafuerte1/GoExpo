@@ -2,31 +2,36 @@ import React from 'react';
 import { Text } from 'react-native';
 
 // returns a boolean answering whether or not we captured the group that the given stone is apart of
-function tryCaptureStones(newGoban, stoneInOpposingGroup) {
+function tryCaptureStones(newGoban, stoneInOpposingGroup, originalStoneIndex) {
+    console.log(newGoban[stoneInOpposingGroup.index]);
+    console.log(JSON.stringify(stoneInOpposingGroup));
     let isCapture = false;
-    stoneInOpposingGroup.group.forEach(stone => {
+    stoneInOpposingGroup.group.forEach((stoneIndex) => {
         console.log("stone we're looking at capturing: ");
-        console.log(stone);
+        console.log(JSON.stringify(stoneInOpposingGroup));
+        // let newStone = {...stone};
+        // stone loses a liberty (should never be at 0 here)
+        // console.log(newGoban[stoneIndex].groupLiberties);
+        if (newGoban[stoneIndex].groupLiberties.length > 0) {
+            let indexOfOriginalStoneInGroup = stoneInOpposingGroup.groupLiberties.findIndex(element => element == originalStoneIndex);
+            console.log(indexOfOriginalStoneInGroup);
+            newGoban[stoneIndex].groupLiberties.splice(indexOfOriginalStoneInGroup, 1);
+            console.log(JSON.stringify(newGoban[stoneIndex].groupLiberties));
+            console.log("removing index: " + originalStoneIndex + " from the liberties of index: " + stoneIndex);
+        }
+        console.log('liberties of opposing stone: ');
+        console.log(stoneInOpposingGroup.groupLiberties);
         // stone is now captured
-        if (stoneInOpposingGroup.groupLiberties.length == 1) {
+        if (stoneInOpposingGroup.groupLiberties.length == 0) {
+            newGoban[stoneIndex].value = 3;
+            newGoban[stoneIndex].group = [];
+            newGoban[stoneIndex].groupLiberties = [];
             console.log("stone will be captured!");
             isCapture = true;
             // TODO: should incremement score here
         }
-        // stone is not captured, but loses a liberty
-        else {
-            const indexInGroupLibertiesArray = stone.groupLiberties.find( element => element.key == stoneInOpposingGroup.key);
-            stone.groupLiberties = stone.groupLiberties.splice(indexInGroupLibertiesArray, 1);
-        }
-        let index = newGoban.findIndex(element => stone.key == element.key);
-        let newStone = {...newGoban[index]}
+        // stone = newStone;
 
-        if (isCapture) {
-            newStone.value = 3;
-            newStone.group = [];
-            newStone.groupLiberties = [];
-        }
-        newGoban.splice(index, 1, newStone)
     });
     return [newGoban, isCapture];
         // return true;
@@ -55,7 +60,9 @@ export function validateStone(currentBoard, placedStone, index) {
     // groups
     let newGoban = [...currentBoard];
     let libertiesOfPlacedStone = [];
-    let stonesInGroupOfPlacedStone = [placedStone];
+    let stonesInGroupOfPlacedStone = [];
+    stonesInGroupOfPlacedStone.push(index);
+    // console.log(stonesInGroupOfPlacedStone);
     // whether or not this group is capturing at least one stone
     let isCapture = false;
 
@@ -66,28 +73,36 @@ export function validateStone(currentBoard, placedStone, index) {
     const westIndex =  (index !== 0) && (index % 9 !== 0) ? index - 1 : null;
     const indexesToCheck = [northIndex, eastIndex, southIndex, westIndex];
     console.log("-------------------------------------------------------------------------------------");
+
+
+    console.log('index of placed stone: ' + index);
+    console.log(JSON.stringify(newGoban));
+    // console.log(placedStone);
     let i;
     for (i = 0; i < indexesToCheck.length; i++) {
+        // console.log("just after for loop starts");
+        // console.log(stonesInGroupOfPlacedStone);
         let currentIndexToCheck = indexesToCheck[i];
 
-        console.log("we're checking index: " + currentIndexToCheck);
-        console.log("the object at this position is: ");
-        console.log(currentBoard[currentIndexToCheck]);
+        // console.log("we're checking index: " + currentIndexToCheck);
+        // console.log("the object at this position is: ");
+        // console.log(currentBoard[currentIndexToCheck]);
         // if the direction we're checking is null, then our current square is on the edge of the board
         if (currentIndexToCheck == null) {
             continue;
         }
         // this direction contains an empty square, so we're adding it to the placed stone's "liberties"
         else if (currentBoard[currentIndexToCheck].value == 3) {
-            libertiesOfPlacedStone.push(currentIndexToCheck);
+            console.log("pushing liberty onto array for direction: " + i);
+            libertiesOfPlacedStone.push(indexesToCheck[i]);
         }
         // this directiion contains a piece from the other color, we need to handle captures now, because
         // that will also factor into whether or not a move is suicidal
         else if (currentBoard[currentIndexToCheck].value != placedStone.value) {
-            console.log("there's an enemy stone here! It's this stone: ");
-            console.log(currentBoard[currentIndexToCheck]);
-            console.log("it's group has these liberties: " + currentBoard[currentIndexToCheck].groupLiberties)
-            let newGobanAndIsCapture = tryCaptureStones(newGoban, currentBoard[currentIndexToCheck]);
+            // console.log("there's an enemy stone here! It's this stone: ");
+            // console.log(currentBoard[currentIndexToCheck]);
+            // console.log("it's group has these liberties: " + currentBoard[currentIndexToCheck].groupLiberties)
+            let newGobanAndIsCapture = tryCaptureStones(newGoban, currentBoard[currentIndexToCheck], index);
             newGoban = newGobanAndIsCapture[0];
             isCapture = newGobanAndIsCapture[1];
         }
@@ -99,12 +114,11 @@ export function validateStone(currentBoard, placedStone, index) {
                 ...new Set([...currentBoard[currentIndexToCheck].groupLiberties,...libertiesOfPlacedStone])
             ];
             libertiesOfPlacedStone = unionOfLiberties;
-            console.log("union of liberties: ")
+            console.log("union of liberties: ");
             console.log(unionOfLiberties);
             // we also need to merge these two groups
             let unionOfGroups = [...new Set([...currentBoard[currentIndexToCheck].group, ...stonesInGroupOfPlacedStone])];
-            let stonesInGroupOfPlacedStone = unionOfGroups;
-            // TODO SOMETHING IS MESSED UP HERE
+            stonesInGroupOfPlacedStone = unionOfGroups;
         }
     }
 
@@ -116,14 +130,13 @@ export function validateStone(currentBoard, placedStone, index) {
     }
     // if the move wasn't suicidal we need to update every stone with it's new knowledge of its group and # of liberties
     else {
-        stonesInGroupOfPlacedStone.forEach(stone => {
-            stone.group = stonesInGroupOfPlacedStone;
-            stone.groupLiberties = libertiesOfPlacedStone;
-            let index = newGoban.findIndex(element => stone.key == element.key);
-            newGoban.splice(index, 1, stone)
+        stonesInGroupOfPlacedStone.forEach(stoneIndex => {
+            console.log(stoneIndex);
+            currentBoard[stoneIndex].group = [...stonesInGroupOfPlacedStone];
+            currentBoard[stoneIndex].groupLiberties = [...libertiesOfPlacedStone];
         });
-        console.log("first stone in the group: ");
-        console.log(stonesInGroupOfPlacedStone[0]);
+        // console.log("first stone in the group: ");
+        // console.log(stonesInGroupOfPlacedStone[0]);
         return [newGoban, false];
     }
 }
