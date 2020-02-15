@@ -30,6 +30,12 @@ const boardSquareArray = [
 let stonesArray = [];
 for (let i = 0; i < 81; i++) {
   let obj = {index: i, value: 3, group: [], groupLiberties: []}
+  // const northIndex = index > 8 ? index - 9 : null;
+  // const eastIndex = (index % 8 !== 0) || (index == 0) ? index + 1 : null;
+  // const southIndex = index < 74 ? index + 9 : null;
+  // const westIndex =  (index !== 0) && (index % 9 !== 0) ? index - 1 : null;
+  // const indexesOfLibertiesAndTheirValues = [{index: northIndex, value: 3 }, {index: eastIndex, value: 3}, {index: southIndex, value: 3}, {index: westIndex, value: 3}];
+  // let obj = {index: i, value: 3, group: [], groupLiberties: indexesOfLibertiesAndTheirValues}
   stonesArray.push(obj);
 }
 

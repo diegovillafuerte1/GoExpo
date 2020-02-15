@@ -1,6 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
 
+
+// what if each stone on the board knew what groups and liberties it was a part of and then when it was interacted with, it would fire off an event
+// should a group be: every stone, or a map of a key to a group of stones?
+function increaseLiberties(capturedStone) {
+    // go through each group touching this stone and increase it's liberties
+}
 // returns a boolean answering whether or not we captured the group that the given stone is apart of
 function tryCaptureStones(newGoban, stoneInOpposingGroup, originalStoneIndex) {
     console.log(newGoban[stoneInOpposingGroup.index]);
@@ -28,6 +34,7 @@ function tryCaptureStones(newGoban, stoneInOpposingGroup, originalStoneIndex) {
             newGoban[stoneIndex].groupLiberties = [];
             console.log("stone will be captured!");
             isCapture = true;
+            increaseLiberties(newGoban[stoneIndex]);
             // TODO: should incremement score here
         }
         // stone = newStone;
@@ -69,7 +76,7 @@ export function validateStone(currentBoard, placedStone, index) {
     // ternaries handle the edges and corners of the board and set that direction to null
     const northIndex = index > 8 ? index - 9 : null;
     const eastIndex = (index % 8 !== 0) || (index == 0) ? index + 1 : null;
-    const southIndex = index < 74 ? index + 9 : null;
+    const southIndex = index < 71 ? index + 9 : null;
     const westIndex =  (index !== 0) && (index % 9 !== 0) ? index - 1 : null;
     const indexesToCheck = [northIndex, eastIndex, southIndex, westIndex];
     console.log("-------------------------------------------------------------------------------------");
