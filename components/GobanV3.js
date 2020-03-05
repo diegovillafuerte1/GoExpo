@@ -39,23 +39,23 @@ for (let i = 0; i < 81; i++) {
   stonesArray.push(obj);
 }
 
-let stonesArrayV2 = [];
-for (let index = 0; index < 81; index++) {
-  const northIndex = index > 8 ? index - 9 : null;
-  const eastIndex = (index % 8 !== 0) || (index == 0) ? index + 1 : null;
-  const southIndex = index < 72 ? index + 9 : null;
-  const westIndex =  (index !== 0) && (index % 9 !== 0) ? index - 1 : null;
-  let obj = {
-    index: i, 
-    value: 3, 
-    group: [index], 
-    groupLiberties: [northIndex, eastIndex, southIndex, westIndex],
-    visited: false
-  }
-  // const indexesOfLibertiesAndTheirValues = [{index: northIndex, value: 3 }, {index: eastIndex, value: 3}, {index: southIndex, value: 3}, {index: westIndex, value: 3}];
-  // let obj = {index: i, value: 3, group: [], groupLiberties: indexesOfLibertiesAndTheirValues}
-  stonesArrayV2.push(obj);
-}
+// let stonesArrayV2 = [];
+// for (let index = 0; index < 81; index++) {
+//   const northIndex = index > 8 ? index - 9 : null;
+//   const eastIndex = (index % 8 !== 0) || (index == 0) ? index + 1 : null;
+//   const southIndex = index < 72 ? index + 9 : null;
+//   const westIndex =  (index !== 0) && (index % 9 !== 0) ? index - 1 : null;
+//   let obj = {
+//     index: i, 
+//     value: 3, 
+//     group: [index], 
+//     groupLiberties: [northIndex, eastIndex, southIndex, westIndex],
+//     visited: false
+//   }
+//   // const indexesOfLibertiesAndTheirValues = [{index: northIndex, value: 3 }, {index: eastIndex, value: 3}, {index: southIndex, value: 3}, {index: westIndex, value: 3}];
+//   // let obj = {index: i, value: 3, group: [], groupLiberties: indexesOfLibertiesAndTheirValues}
+//   stonesArrayV2.push(obj);
+// }
 
 const numColumns = 8;
 export default class GobanV3 extends React.Component {

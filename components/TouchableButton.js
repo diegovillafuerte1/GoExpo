@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableHighlight, Alert, View, StyleSheet, Dimensions } from "react-native";
-import { validateStone } from "./StoneValidation";
+import { validateStone } from "./StoneValidationV2";
 
 
 
@@ -39,18 +39,13 @@ export default class TouchableButton extends React.Component {
                         return;
                     }
                     else {
-                        // get copies of the old data to update
-                        let newStone = {...ourOldStone}
-                        let newGoban = [...this.props.goban];
-
-                        // 0 represents a black stone and 1 represents a white stone. The values are initialized at 3
-                        newStone.value = this.props.turn % 2;
-                        newGoban.splice(this.props.index, 1, newStone);
-                        let boardStateAfterValidatingStone = validateStone(newGoban, newGoban[this.props.index], this.props.index);
+                        const oldBoard = this.props.goban;
+                        let boardStateAfterValidatingStone = validateStone(oldBoard, this.props.index, this.props.turn);
                         // error case
                         if (boardStateAfterValidatingStone[1] == true) {
                             return;
                         }
+                        console.log("trying to update stone handler");
 
                         // increment turn and update board state in parent
                         this.props.stonesHandler(boardStateAfterValidatingStone[0]);
