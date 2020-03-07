@@ -5,5 +5,6 @@ Networking uses socket.io to communicate with https://github.com/diegovillafuert
 
 To install run:
 ```npm install```
-and then
+
+To start run:
 ```expo start```
